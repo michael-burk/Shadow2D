@@ -1,0 +1,89 @@
+//@author: mburk
+//@help: 1D ShadowMap for 2D Shadows
+//@tags: texture
+//@credits: 
+
+Texture2D texture2d : PREVIOUS;
+Texture2D occluderTex;
+
+SamplerState linearSampler : IMMUTABLE
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = WRAP;
+    AddressV = WRAP;
+};
+
+
+#define PI 3.14
+
+//alpha threshold for our occlusion map
+static const float THRESHOLD = 0.75;
+
+float2 res;
+
+int lightCount = 0;
+
+StructuredBuffer <float4x4> tLight <string uiname="Light Transform";>;
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+
+
+float4 PS(psInput input) : SV_Target
+{	
+	
+	float distance = 2;
+	float4 c;
+	
+
+	
+		for (float y = 0; y < res.y; y += 1) {
+			
+			//rectangular to polar filter
+	        float2 norm = float2(input.uv.x, y/res.y) * 2.0 - 1.0;
+			
+	        float theta = PI * 1.5 + norm.x * PI; 
+	        float r = (1.0 + norm.y) * 0.5;
+			
+			//coord which we will sample from occlude map
+	        float2 coord = float2(-r * sin(theta), -r * cos(theta)) / 2 + .5 ;
+			
+			//coord = mul(float4(coord.x,coord.y,1,1),tLight[0]).xy;
+			coord = mul(float4(coord.x,coord.y,1,1),tLight[input.uv.y*lightCount]).xy;
+			//coord = mul(float4(coord.x,coord.y,1,1),tLight[l]).xy;
+			
+			//sample the occlusion map
+	        float4 data = occluderTex.Sample(linearSampler,coord);
+			
+			//the current distance is how far from the top we've come
+	        float dst = y/res.y ;
+			
+			//if we've hit an opaque fragment (occluder), then get new distance
+	        //if the new distance is below the current, then we'll use that for our ray
+	        float caster = data.a;
+			
+	        if (caster > THRESHOLD) {
+	            distance = min(distance, dst);
+	            //NOTE: we could probably use "break" or "return" here
+	        }
+	
+		}
+
+	
+	c = float4(float3(distance,distance,distance), 1.0);
+	
+	//c= input.uv.y;
+	
+	return c;
+}
+
+technique10 Process
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS()));
+	}
+}
