@@ -19,7 +19,7 @@ SamplerState linearSampler : IMMUTABLE
 //alpha threshold for our occlusion map
 static const float THRESHOLD = 0.75;
 
-float2 res;
+float2 res:TARGETSIZE;
 
 int lightCount = 0;
 

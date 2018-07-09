@@ -289,6 +289,10 @@
    </PIN>
    <PIN pinname="test" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="Default SizeXY" visible="1">
+   </PIN>
+   <PIN pinname="Use Default Size" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Transform Out" dstnodeid="2" dstpinname="Transform">
    </LINK>
@@ -727,6 +731,10 @@
    </PIN>
    <PIN pinname="Light Transform" visible="1">
    </PIN>
+   <PIN pinname="Default SizeXY" visible="1">
+   </PIN>
+   <PIN pinname="Use Default Size" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="221" dstpinname="resXY" linkstyle="Bezier">
    <LINKPOINT x="3525" y="8520">
@@ -801,5 +809,9 @@
    <LINK srcnodeid="128" srcpinname="Buffer" dstnodeid="221" dstpinname="Light Transform">
    </LINK>
    <LINK srcnodeid="132" srcpinname="Output" dstnodeid="115" dstpinname="TranslateXY">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Default SizeXY">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="221" dstpinname="Default SizeXY">
    </LINK>
    </PATCH>

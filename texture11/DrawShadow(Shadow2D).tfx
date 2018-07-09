@@ -15,7 +15,7 @@ SamplerState linearSampler
 
 };
 
-float2 res;
+float2 res:TARGETSIZE;
 float softness = 1;
 float gamma <float uimin=0.0;float uimax=1.0;> =0.5;
 
