@@ -505,7 +505,7 @@
    </PIN>
    <PIN pinname="Height" visible="1" slicecount="1" values="2.02">
    </PIN>
-   <PIN pinname="Phase" slicecount="1" visible="1" values="0.1">
+   <PIN pinname="Phase" slicecount="1" visible="1" values="0.19">
    </PIN>
    <PIN pinname="Factor" slicecount="1" values="1">
    </PIN>
@@ -537,7 +537,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9840" top="3570" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="4">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -561,7 +561,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7200" top="4050" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1.38">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1.4">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -683,21 +683,21 @@
    </LINKPOINT>
    </LINK>
    <NODE systemname="Select (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Select (Value)" componentmode="Hidden" id="211">
-   <BOUNDS type="Node" left="11835" top="9765" width="100" height="100">
+   <BOUNDS type="Node" left="10875" top="10245" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Select" slicecount="1" visible="1" values="4">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input" slicecount="1" visible="1" values="0">
+   <PIN pinname="Input" slicecount="1" visible="1" values="1">
    </PIN>
-   <BOUNDS type="Box" left="11835" top="9765">
+   <BOUNDS type="Box" left="10875" top="10245">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="173" srcpinname="Y Output Value" dstnodeid="211" dstpinname="Select" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="9855" y="6853">
+   <LINKPOINT x="9535" y="7013">
    </LINKPOINT>
-   <LINKPOINT x="12360" y="6708">
+   <LINKPOINT x="11720" y="7028">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="212" systemname="IOBox (Color)">
@@ -721,7 +721,7 @@
    <NODE systemname="DrawShadow(Shadow2D) (DX11.TextureFX)" filename="texture11\DrawShadow(Shadow2D).tfx" nodename="DrawShadow(Shadow2D) (DX11.TextureFX)" componentmode="Hidden" id="221">
    <BOUNDS type="Node" left="1740" top="11490" width="10755" height="270">
    </BOUNDS>
-   <PIN pinname="softness" slicecount="1" values="1">
+   <PIN pinname="softness" slicecount="1" values="3">
    </PIN>
    <PIN pinname="gamma" slicecount="1" values="0.5">
    </PIN>
@@ -802,8 +802,6 @@
    </LINK>
    <LINK srcnodeid="210" srcpinname="Output" dstnodeid="222" dstpinname="Data">
    </LINK>
-   <LINK srcnodeid="209" srcpinname="Y Output Value" dstnodeid="207" dstpinname="Data">
-   <LINKPOINT x="10620" y="10380">
-   </LINKPOINT>
+   <LINK srcnodeid="211" srcpinname="Output" dstnodeid="207" dstpinname="Data">
    </LINK>
    </PATCH>

@@ -66,18 +66,21 @@ float4 PS(psInput input) : SV_Target
 		
 		//now we use a simple gaussian blur
 	    float sum = 0;
-	
+		
+//		sum += sample(float2(tc.x - 5.0*blur, tc.y), r) * 0.02;
 	    sum += sample(float2(tc.x - 4.0*blur, tc.y), r) * 0.05;
 	    sum += sample(float2(tc.x - 3.0*blur, tc.y), r) * 0.09;
 	    sum += sample(float2(tc.x - 2.0*blur, tc.y), r) * 0.12;
 	    sum += sample(float2(tc.x - 1.0*blur, tc.y), r) * 0.15;
 	
 	    sum += center * 0.16;
-	
+		
 	    sum += sample(float2(tc.x + 1.0*blur, tc.y), r) * 0.15;
 	    sum += sample(float2(tc.x + 2.0*blur, tc.y), r) * 0.12;
 	    sum += sample(float2(tc.x + 3.0*blur, tc.y), r) * 0.09;
 	    sum += sample(float2(tc.x + 4.0*blur, tc.y), r) * 0.05;
+//		sum += sample(float2(tc.x + 5.0*blur, tc.y), r) * 0.02;
+
 		
 		float g=gamma/(1.00001-gamma);
 		c += float4(lCol[l].rgb, 1) * sum * pow(smoothstep(lSize[l%lightCount], .0, r),g);	
