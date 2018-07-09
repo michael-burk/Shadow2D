@@ -16,10 +16,12 @@ SamplerState linearSampler
 };
 
 float2 res;
+float softness = 1;
+float gamma <float uimin=0.0;float uimax=1.0;> =0.5;
 
 #define PI 3.14
 
-int lightCount = 0;
+float lightCount = 0;
 
 float sample(float2 coord, float r) {
     return step(r, shadowMap.Sample(linearSampler, coord.xy).r).r;
@@ -40,12 +42,12 @@ StructuredBuffer <float> lSize <string uiname="LightSize";>;
 float4 PS(psInput input) : SV_Target
 {	
 	
-	float4 c;
+	float4 c = 0;
 	
-	for (float l = 0; l < lightCount; l += 1) {
+	for (float l = 0; l < (float)lightCount; l ++) {
 		
 		//rectangular to polar
-		float2 t = mul(float4(0,0,0,1),tLight[l]).xy;
+		float2 t = mul(float4(0,0,0,1),tLight[l%lightCount]).xy;
 		float2 norm = float2(input.uv.x - t.x, input.uv.y + t.y) * 2.0  -1.0;
 	    float theta = -atan2(norm.y, norm.x);
 	    float r = length(norm); 
@@ -53,14 +55,14 @@ float4 PS(psInput input) : SV_Target
 		
 		//the tex coord to samplze our 1D lookup texture 
 	    //always 0.0 on y axis
-	    float2 tc = float2(coord, l/lightCount);
+	    float2 tc = float2(coord, l/(lightCount-1));
 		
 		//the center tex coord, which gives us hard shadows
 	    float center = sample(tc, r);    
 		
 		//we multiply the blur amount by our distance from center
 	    //this leads to more blurriness as the shadow "fades away"
-	    float blur = (1/res.x)  * smoothstep(.1, 1, r);
+	    float blur = (1/res.x)  * smoothstep(.1, 1, r) * softness;
 		
 		//now we use a simple gaussian blur
 	    float sum = 0;
@@ -77,21 +79,8 @@ float4 PS(psInput input) : SV_Target
 	    sum += sample(float2(tc.x + 3.0*blur, tc.y), r) * 0.09;
 	    sum += sample(float2(tc.x + 4.0*blur, tc.y), r) * 0.05;
 		
-	
-//		c += float4(lCol[l].rgb, sum * smoothstep(1, .1, r));
-		c += float4(float3(1,1,1), sum * smoothstep(lSize[l], .1, r));	
-		
-//		float3 col = mul(lCol[l].rgb,0);
-//		c += float4(	lCol[l].r * sum * smoothstep(lSize[l], .1, r),
-//						lCol[l].g * sum * smoothstep(lSize[l], .1, r),
-//						lCol[l].b * sum * smoothstep(lSize[l], .1, r),
-//						sum * smoothstep(lSize[l], .1, r));
-
-//		float3 col = lCol[l].rgb;
-//		c += float4(	sum * smoothstep(lCol[l].r, .1, r),
-//						sum * smoothstep(lCol[l].g, .1, r),
-//						sum * smoothstep(lCol[l].b, .1, r),
-//						sum * smoothstep(lSize[l], .1, r));
+		float g=gamma/(1.00001-gamma);
+		c += float4(lCol[l].rgb, 1) * sum * pow(smoothstep(lSize[l%lightCount], .0, r),g);	
 
 	}
 	
