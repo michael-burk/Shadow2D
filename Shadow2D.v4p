@@ -474,8 +474,6 @@
    <PIN pinname="Input 2" slicecount="1" values="2">
    </PIN>
    </NODE>
-   <LINK srcnodeid="119" srcpinname="Output" dstnodeid="115" dstpinname="TranslateXY">
-   </LINK>
    <LINK srcnodeid="125" srcpinname="Output" dstnodeid="122" dstpinname="TranslateXY">
    </LINK>
    <LINK srcnodeid="132" srcpinname="Output" dstnodeid="119" dstpinname="Input 1">
@@ -727,6 +725,8 @@
    </PIN>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
+   <PIN pinname="Light Transform" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="221" dstpinname="resXY" linkstyle="Bezier">
    <LINKPOINT x="3525" y="8520">
@@ -738,12 +738,6 @@
    <LINKPOINT x="1770" y="9668">
    </LINKPOINT>
    <LINKPOINT x="1770" y="9668">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="196" srcpinname="Buffer" dstnodeid="221" dstpinname="Light Transform" linkstyle="Bezier">
-   <LINKPOINT x="7740" y="11273">
-   </LINKPOINT>
-   <LINKPOINT x="9150" y="11273">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="14" srcpinname="Texture Out" dstnodeid="221" dstpinname="shadowMap" linkstyle="Bezier">
@@ -769,7 +763,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9435" top="10815">
    </BOUNDS>
-   <PIN pinname="Data" slicecount="1" values="|0.99537,0.99537,0.99537,1.00000|" visible="1">
+   <PIN pinname="Data" slicecount="1" visible="1" values="|0.99537,0.99537,0.99537,1.00000|">
    </PIN>
    </NODE>
    <LINK srcnodeid="222" srcpinname="Buffer" dstnodeid="221" dstpinname="LightColor" linkstyle="Bezier">
@@ -803,5 +797,9 @@
    <LINK srcnodeid="210" srcpinname="Output" dstnodeid="222" dstpinname="Data">
    </LINK>
    <LINK srcnodeid="211" srcpinname="Output" dstnodeid="207" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="128" srcpinname="Buffer" dstnodeid="221" dstpinname="Light Transform">
+   </LINK>
+   <LINK srcnodeid="132" srcpinname="Output" dstnodeid="115" dstpinname="TranslateXY">
    </LINK>
    </PATCH>

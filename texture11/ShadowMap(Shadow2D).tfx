@@ -52,7 +52,7 @@ float4 PS(psInput input) : SV_Target
 	        float2 coord = float2(-r * sin(theta), -r * cos(theta)) / 2 + .5 ;
 			
 			//coord = mul(float4(coord.x,coord.y,1,1),tLight[0]).xy;
-			coord = mul(float4(coord.x,coord.y,1,1),tLight[input.uv.y*lightCount]).xy;
+			coord = mul(float4(coord.x,-coord.y,1,1),tLight[input.uv.y*lightCount]).xy;
 			//coord = mul(float4(coord.x,coord.y,1,1),tLight[l]).xy;
 			
 			//sample the occlusion map
